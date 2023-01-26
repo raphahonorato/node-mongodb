@@ -29,9 +29,16 @@
     <tbody>
       <% customers.forEach( item=> { %>
         <tr>
-          <td><%= item.nome %></td>
-          <td><%= item.idade %></td>
-          <td><%= item.cidade %><%= item.uf %></td>
+          <td>
+            <%= item.nome %>
+          </td>
+          <td>
+            <%= item.idade %>
+          </td>
+          <td>
+            <%= item.cidade %>
+              <%= item.uf %>
+          </td>
           <td></td>
         </tr>
 
