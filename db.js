@@ -1,16 +1,23 @@
 const ObjectId = require('mongodb').ObjectId;
 const MongoClient = require('mongodb').MongoClient;
 
-MongoClient.connect('mongodb://localhost:27017',
-    { useUnifiedTopology: true },
-    (error, connection) => {
-        if (error) return console.log(error);
-        global.connection = connection.db('mongoAula');
-        console.log('-----------CONECTADO-----------')
-    })
 
+function connectDatabase() {
+    if (!global.connection)
+        MongoClient.connect(process.env.MONGODB_CONNECTION,
+            { useUnifiedTopology: true })
+            .then(connection => {
+                global.connection = connection.db('mongoAula')
+                console.log('-----------CONECTADO-----------')
+            })
+            .catch(error => {
+                console.log(error)
+                global.connection = null
+            })
+}
 
 function findCustomers() {
+    connectDatabase()
     return global.connection
         .collection('clientes')
         .find({})
@@ -19,6 +26,7 @@ function findCustomers() {
 
 
 function findCustomer(id) {
+    connectDatabase()
     const objectId = new ObjectId(id)
     return global.connection
         .collection('clientes')
@@ -27,6 +35,7 @@ function findCustomer(id) {
 }
 
 function insertCustomer(customer) {
+    connectDatabase()
     return global.connection
         .collection('clientes')
         .insertOne(customer)
@@ -34,6 +43,7 @@ function insertCustomer(customer) {
 
 
 function updateCustomer(id, customer) {
+    connectDatabase()
     const objectId = new ObjectId(id)
     return global.connection
         .collection('clientes')
@@ -41,6 +51,7 @@ function updateCustomer(id, customer) {
 }
 
 function deleteCustomer(id) {
+    connectDatabase()
     const objectId = new ObjectId(id);
     return global.connection
         .collection('clientes')

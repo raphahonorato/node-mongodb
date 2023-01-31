@@ -29,12 +29,26 @@
     <tbody>
       <% customers.forEach( item=> { %>
         <tr>
-          <td><a href="/edit/<%= item._id %>"  title="Editar"><%= item.nome %></a></td>
-          <td><%= item.idade %></td>
-          <td><%= item.cidade %> <%= item.uf %></td>
-          <td><a href="/edit/<%= item._id %>"><img src="/images/edit.png" title="Editar"></a></td>
+          <td><a href="/edit/<%= item._id %>" title="Editar">
+              <%= item.nome %>
+            </a></td>
+          <td>
+            <%= item.idade %>
+          </td>
+          <td>
+            <%= item.cidade %>
+              <%= item.uf %>
+          </td>
+          <td>
+            <a href="/edit/<%= item._id %>" title="Editar">
+              <img src="/images/edit.png">
+            </a>
+            <a href="/delete/<%= item._id %>" title="Excluir" onclick="return confirm('Deseja excluir este cliente?')">
+              <img src="/images/delete.png" />
+            </a>
+          </td>
         </tr>
-      <% }) %>
+        <% }) %>
     </tbody>
   </table>
   <a href="/new">Cadastrar Novo</a>

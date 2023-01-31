@@ -7,17 +7,18 @@ const db = require('../db');
 router.get('/', function (req, res, next) {
   db.findCustomers()
     .then(customers => {
-      console.log(customers);
+      // console.log(customers);
       res.render('index', { title: 'Express', customers });
     })
-    .catch(error => console.log(error));
+    .catch(error => {
+      console.log(error)
+      res.render('error', { message: 'Não foi possível listar os clientes!' , error})
+    });
 });
 
 
 router.get('/new', (req, res) => {
-
   res.render('customer', { title: 'Cadastro de Clientes', customer: {} });
-
 })
 
 
@@ -25,8 +26,23 @@ router.get('/edit/:customerId', (req, res) => {
   const id = req.params.customerId;
   db.findCustomer(id)
     .then(customer => res.render('customer', { title: 'Edição de cadastro', customer }))
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log(error)
+      res.render('error', { message: 'Não foi possível listar os dados do cliente!' , error})
+    });
 })
+
+
+router.get('/delete/:customerId', (req, res) => {
+  const id = req.params.customerId
+  db.deleteCustomer(id)
+    .then(result => res.redirect('/'))
+    .catch(error => {
+      console.log(error)
+      res.render('error', { message: 'Não foi possível excluir o cliente!' , error})
+    });
+})
+
 
 router.post('/new', (req, res) => {
   if (!req.body.nome)
@@ -49,8 +65,9 @@ router.post('/new', (req, res) => {
       res.redirect('/')
     })
     .catch(error => {
-      return console.log(error)
-    })
+      console.log(error)
+      res.render('error', { message: 'Não foi possível salvar o cliente!' , error})
+    });
 })
 
 
