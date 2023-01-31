@@ -55,7 +55,7 @@ function deleteCustomer(id) {
     const objectId = new ObjectId(id);
     return global.connection
         .collection('clientes')
-        .deleteOne({ _id: ObjectId });
+        .deleteOne({ _id: objectId });
 
 }
 
