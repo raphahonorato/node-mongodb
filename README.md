@@ -1,7 +1,7 @@
-# node-mongodb
+Aplicação web inicialmente para cadastro de clientes
 
-fixando um pouco sobre CRUD
+Painel de controle que realiza os conceitos básicos de um CRUD.
 
-criei uma aplicação simples que procura,cadastra, atualiza e apaga elementos num banco dedados
+Cria, ler, atualiza e exclui clientes do banco de dados e ao mesmo tempo exibe na tela do usuário.
 
-NODEJS com MONGODB
+Feito NodeJS e MongoDB.
