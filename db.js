@@ -18,6 +18,14 @@ function findCustomers() {
 }
 
 
+function findCustomer(id) {
+    const objectId = new ObjectId(id)
+    return global.connection
+        .collection('clientes')
+        .findOne({ _id: objectId })
+
+}
+
 function insertCustomer(customer) {
     return global.connection
         .collection('clientes')
@@ -45,5 +53,6 @@ module.exports = {
     findCustomers,
     insertCustomer,
     updateCustomer,
-    deleteCustomer
+    deleteCustomer,
+    findCustomer
 }

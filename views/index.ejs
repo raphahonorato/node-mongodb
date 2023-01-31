@@ -29,20 +29,12 @@
     <tbody>
       <% customers.forEach( item=> { %>
         <tr>
-          <td>
-            <%= item.nome %>
-          </td>
-          <td>
-            <%= item.idade %>
-          </td>
-          <td>
-            <%= item.cidade %>
-              <%= item.uf %>
-          </td>
-          <td></td>
+          <td><a href="/edit/<%= item._id %>"  title="Editar"><%= item.nome %></a></td>
+          <td><%= item.idade %></td>
+          <td><%= item.cidade %> <%= item.uf %></td>
+          <td><a href="/edit/<%= item._id %>"><img src="/images/edit.png" title="Editar"></a></td>
         </tr>
-
-        <% }) %>
+      <% }) %>
     </tbody>
   </table>
   <a href="/new">Cadastrar Novo</a>

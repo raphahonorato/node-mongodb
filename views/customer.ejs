@@ -18,21 +18,24 @@
         <fieldset>
             <legend>Dados Cadastrais</legend>
 
-            <p>Nome: <input type="text" name="nome">
+            <p>
+                Nome:
+                <input type="text" name="nome" value="<%= customer.nome%>">
             </p>
 
-            <p>Idade: <input type="bumber" name="idade">
+            <p>Idade: <input type="bumber" name="idade" value="<%= customer.idade%>">
             </p>
 
-            <p>Região: <input type="text" name="cidade">
-                <select name="uf">
+            <p>Região: <input type="text" name="cidade" value="<%= customer.cidade%>">
+                <select id="uf" name="uf" value="<%= customer.uf%>">
                     <option>Selecione a UF:</option>
                     <option>RJ</option>
                     <option>CWB</option>
-                    <option>SP</option>
+                    <option>SP</option> 
                     <option>RS</option>
                 </select>
             </p>
+            <input type="hidden" name="id" value="<%= customer._id%>"/>
             <p>
                 <input type="submit" value="Salvar" />
                 <a href="/">Cancelar</a>
@@ -45,6 +48,15 @@
             const error = window.location.search.split('=')[1];
             alert(decodeURI(error))
         }
+        
+
+        <%
+            if(customer.uf){
+                %>
+                document.getElementById('uf').value = '<%= customer.uf%>'
+                <%
+            }
+        %>
 
     </script>
 </body>

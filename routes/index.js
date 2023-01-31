@@ -16,8 +16,16 @@ router.get('/', function (req, res, next) {
 
 router.get('/new', (req, res) => {
 
-  res.render('customer', { title: 'Cadastro de Clientes' });
+  res.render('customer', { title: 'Cadastro de Clientes', customer: {} });
 
+})
+
+
+router.get('/edit/:customerId', (req, res) => {
+  const id = req.params.customerId;
+  db.findCustomer(id)
+    .then(customer => res.render('customer', { title: 'Edição de cadastro', customer }))
+    .catch(error => console.log(error))
 })
 
 router.post('/new', (req, res) => {
@@ -27,16 +35,18 @@ router.post('/new', (req, res) => {
   if (!req.body.idade)
     return res.redirect('/new?error=O campo idade é numérico')
 
+  const id = req.body.id;
   const nome = req.body.nome;
   const idade = parseInt(req.body.idade);
   const cidade = req.body.cidade;
   const uf = req.body.uf.length > 2 ? '' : req.body.uf;
-  
-  db.insertCustomer({ nome, idade, cidade, uf })
+  const customer = { nome, idade, cidade, uf }
+  const promise = id ? db.updateCustomer(id, customer)
+    : db.insertCustomer(customer);
+
+  promise
     .then(result => {
-
       res.redirect('/')
-
     })
     .catch(error => {
       return console.log(error)
